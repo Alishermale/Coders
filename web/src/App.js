@@ -49,7 +49,7 @@ function App() {
           <AnswerCard key={index} message={message.message} isSender={message.isSender} />
         ))}
         <div className="InputArea">
-          <input
+          <textarea
             type="text"
             placeholder="Введите сообщение..."
             value={inputText}
