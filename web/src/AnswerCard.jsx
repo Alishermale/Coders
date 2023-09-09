@@ -1,14 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import ReactLoading from 'react-loading'
 
-const AnswerCard = ({ message, isSender }) => {
+const AnswerCard = ({message, isSender}) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isLoading, setIsLoading] = React.useState(true); // для загрузки
+
+  const [isAppeared, setIsAppeared] = React.useState(false)
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
 
+  const toggleLoading = () => {
+    setTimeout(
+      () => {
+        setIsLoading(!isLoading)
+      },
+    3000)
+  };
+
+  useEffect(() => {
+    setIsAppeared(true)
+    if (!isSender) {
+      toggleLoading()
+    }
+    
+    
+  }, [])
+
+  
+
   const cardStyle = {
     marginBottom: 40,
+    
   };
 
   const buttonStyle = {
@@ -31,10 +55,10 @@ const AnswerCard = ({ message, isSender }) => {
       return '40%'
     }
     if (message.length >= 20) {
-      return '30%'
+      return '40%'
     }
     if (message.length >= 10) {
-      return '15%'
+      return '30%'
     }
     return 'auto'
   }
@@ -53,6 +77,8 @@ const AnswerCard = ({ message, isSender }) => {
     
     marginLeft: isSender ? 'auto' : 'none',
     marginRight: isSender ? 'none' : 'auto',
+    opacity: isAppeared? 1 : 0,
+    transition: 'opacity 0.3s'
 
   };
 
@@ -70,17 +96,23 @@ const AnswerCard = ({ message, isSender }) => {
   return (
     <div style={ cardStyle }>
       <div style={ messageField }>
-        { isExpanded ? (
-          <p style={textStyle}>{message}</p>
-        ) : (
-          <p style={textStyle}>{ message.slice(0, 400) }</p>
-        )}
-        { message.length > 400 && (
-          <button style={buttonStyle} onClick={toggleExpand}>
-            {buttonText}
-          </button>
-        )}
+        { !isSender && isLoading ? <ReactLoading type={"bars"} color={"black"} /> 
+        : 
+        <div>
+          {isExpanded ? (
+            <p style={textStyle}>{message}</p>
+          ) : (
+            <p style={textStyle}>{ message.slice(0, 400) }</p>
+          )}
+          { message.length > 400 && (
+            <button style={buttonStyle} onClick={toggleExpand}>
+              {buttonText}
+            </button>
+          )}
+        </div>}
+        
       </div>
+      
       
 
 

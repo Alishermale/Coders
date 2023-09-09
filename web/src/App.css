@@ -1,7 +1,7 @@
 @media (min-width: 0px) {
   .Chat {
     padding: 2%;
-    padding-bottom: 20%;
+    padding-bottom: 18%;
   }
 
   .InputArea {
@@ -11,22 +11,16 @@
 
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .App {
-
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    height: 100vh;
-    flex-direction: column;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   
   
+  
   .Chat {
-    overflow-y: scroll;
     padding: 2% 18%;
-    padding-bottom: 15%;
+    padding-bottom: 12%;
 
   }
 
@@ -36,10 +30,19 @@
   }
 }
 
+.App {
+  display: flex;
+  flex-direction: column;
+}
 
 .Chat {
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  
 }
+
+
 
 
 
@@ -102,4 +105,27 @@
 
 .InputArea button:hover {
   background-color: #0056b3; /* Цвет кнопки при наведении */
+}
+
+.ButtonStyle {
+  display: flex;
+}
+
+
+.spinner {
+  width: 3vw;
+  height: 3vw;
+  border: 3px solid;
+  border-color: #3d5af1 transparent #3d5af1 transparent;
+  border-radius: 2vw;
+  animation: spin-anim 1.2s linear infinite;
+}
+
+@keyframes spin-anim {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
 }
