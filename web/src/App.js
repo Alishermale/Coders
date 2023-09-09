@@ -4,7 +4,7 @@ import './App.css';
 import AnswerCard from './AnswerCard';
 
 export const api = axios.create({
-  baseURL: 'http://185.195.27.161:8000/predict/' //  IP/api
+  baseURL: 'http://185.195.27.161:8000'
 });
 
 
@@ -28,9 +28,11 @@ function App() {
       setInputText('');
       
       try {
-        // const response = await api.get(senderNewMessage.message, { timeout: 500 }); // API PATH
+        const postQuerry = { text: senderNewMessage.message }
+        const response = await api.post('/predict/', postQuerry, { timeout: 5000 });
+
         const botNewMessage = {
-          message: "response.data", /// API GET OK!
+          message: response.data.text,
           isSender: false,
         };
   
