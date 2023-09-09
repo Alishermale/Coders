@@ -20,15 +20,40 @@ const AnswerCard = ({ message, isSender }) => {
     marginTop: 10
   };
 
+  const checkSize = () => {
+    if (message.length >= 100) {
+      return '70%'
+    }
+    if (message.length >= 60) {
+      return '50%'
+    }
+    if (message.length >= 40) {
+      return '40%'
+    }
+    if (message.length >= 20) {
+      return '30%'
+    }
+    if (message.length >= 10) {
+      return '15%'
+    }
+    return 'auto'
+  }
+
   const messageField = {
     backgroundColor: isSender ? '#1E2022' : '#B7CBD8',
     color: isSender ? 'white' : 'black',
     borderRadius: isSender ? '20px 0px 20px 20px' : '0px 20px 20px 20px',
     padding: '15px 25px',
     marginBottom: '10px',
-    width: '80%',
+    width: 'min-content',
+    display: 'flex',
+    flexDirection: 'column',
+    minWidth: checkSize(),
+    justifyContent: isSender? 'right': 'left',
+    
     marginLeft: isSender ? 'auto' : 'none',
     marginRight: isSender ? 'none' : 'auto',
+
   };
 
   const textStyle = {
@@ -50,7 +75,7 @@ const AnswerCard = ({ message, isSender }) => {
         ) : (
           <p style={textStyle}>{ message.slice(0, 400) }</p>
         )}
-        { message.length > 100 && (
+        { message.length > 400 && (
           <button style={buttonStyle} onClick={toggleExpand}>
             {buttonText}
           </button>

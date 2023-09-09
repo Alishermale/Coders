@@ -4,7 +4,7 @@ import './App.css';
 import AnswerCard from './AnswerCard';
 
 export const api = axios.create({
-  baseURL: '' //  IP/api
+  baseURL: 'http://185.195.27.161:8000/predict/' //  IP/api
 });
 
 
@@ -28,9 +28,9 @@ function App() {
       setInputText('');
       
       try {
-        const response = await api.get('', { timeout: 500 }); // API PATH
+        // const response = await api.get(senderNewMessage.message, { timeout: 500 }); // API PATH
         const botNewMessage = {
-          message: response.statusText, /// API GET OK!
+          message: "response.data", /// API GET OK!
           isSender: false,
         };
   
@@ -48,7 +48,9 @@ function App() {
         {messages.map((message, index) => (
           <AnswerCard key={index} message={message.message} isSender={message.isSender} />
         ))}
-        <div className="InputArea">
+        
+      </div>
+      <div className="InputArea">
           <textarea
             type="text"
             placeholder="Введите сообщение..."
@@ -57,7 +59,6 @@ function App() {
           />
           <button onClick={handleSendMessage}>Отправить</button>
         </div>
-      </div>
       
     </div>
   );
