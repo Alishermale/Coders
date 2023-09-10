@@ -1,0 +1,5 @@
+onnxruntime
+uvicorn[standard]
+fastapi
+torch
+transformers[torch]
