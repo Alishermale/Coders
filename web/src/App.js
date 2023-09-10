@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import {animateScroll} from 'react-scroll'
 import axios from 'axios';
-import {FaPaperPlane} from 'react-icons/fa'
-
 import './App.css';
 import AnswerCard from './AnswerCard';
+import {FaPaperPlane} from 'react-icons/fa'
+
 
 export const api = axios.create({
   baseURL: 'http://185.195.27.161:8000'
@@ -16,16 +16,25 @@ function App() {
   const [isLocked, setIsLocked] = React.useState(false);
   const [messages, setMessages] = React.useState([]);
   
+  const handleTrimText = (text) => {
+    const words = text.split(' ');
+    const trimmedWords = words.slice(0, 200);
+    const trimmed = trimmedWords.join(' ');
+    return trimmed;
+  };
+
   const scrollToBottom = () => {
     animateScroll.scrollToBottom()
   }
 
-  useEffect(() => scrollToBottom(), messages)
-  
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages])
+
+
   const handleInputChange = (event) => {
     setInputText(event.target.value);
   };
-
 
   const handleSendMessage = async () => {
     if (inputText.trim() !== '') {
@@ -33,7 +42,7 @@ function App() {
       setIsLocked(true)
 
       const senderNewMessage = {
-        message: inputText,
+        message: handleTrimText(inputText),
         isSender: true,
       };
       setMessages([...messages, senderNewMessage]);
@@ -62,8 +71,8 @@ function App() {
       
     }
     scrollToBottom()
+    
   };
-
 
   return (
     <div className="App">
@@ -71,11 +80,6 @@ function App() {
         {messages.map((message, index) => (
           <AnswerCard key={index} message={message.message} isSender={message.isSender} />
         ))}
-        {/* {isLoading?
-          <ReactLoading type={"bars"} width={40} color={"black"} /> : null
-        } */}
-        
-        
       </div>
       <div className="InputArea">
         <textarea
@@ -85,11 +89,10 @@ function App() {
           disabled={isLocked}
           onChange={handleInputChange}
         />
-        <button className='ButtonStyle' onClick={handleSendMessage}>
-          <FaPaperPlane />
+        <button className="ButtonStyle" onClick={handleSendMessage}>
+          <FaPaperPlane/>
         </button>
       </div>
-      
     </div>
   );
 }

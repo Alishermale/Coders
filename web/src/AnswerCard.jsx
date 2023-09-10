@@ -1,48 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import ReactLoading from 'react-loading'
 
+
+
+
 const AnswerCard = ({message, isSender}) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isLoading, setIsLoading] = React.useState(true); // для загрузки
-
-  const [isAppeared, setIsAppeared] = React.useState(false)
-
-  const toggleExpand = () => {
-    setIsExpanded(!isExpanded);
-  };
-
-  const toggleLoading = () => {
-    setTimeout(
-      () => {
-        setIsLoading(!isLoading)
-      },
-    3000)
-  };
-
-  useEffect(() => {
-    setIsAppeared(true)
-    if (!isSender) {
-      toggleLoading()
-    }
-    
-    
-  }, [])
-
-  
-
-  const cardStyle = {
-    marginBottom: 40,
-    
-  };
-
-  const buttonStyle = {
-    background: 'transparent',
-    color: '#838383',
-    border: 'none',
-    cursor: 'pointer',
-    padding: 0,
-    marginTop: 10
-  };
+  const [isLoading, setIsLoading] = useState(true);
 
   const checkSize = () => {
     if (message.length >= 100) {
@@ -63,6 +27,28 @@ const AnswerCard = ({message, isSender}) => {
     return 'auto'
   }
 
+  useEffect(() => {
+    if (!isSender) {
+      setTimeout(() => {
+        setIsLoading(!isLoading)
+      }, 3000)
+    }
+  }, [])
+
+  const cardStyle = {
+    marginBottom: 40,
+    
+  };
+  
+  const buttonStyle = {
+    background: 'transparent',
+    color: '#838383',
+    border: 'none',
+    cursor: 'pointer',
+    padding: 0,
+    marginTop: 10
+  };
+  
   const messageField = {
     backgroundColor: isSender ? '#1E2022' : '#B7CBD8',
     color: isSender ? 'white' : 'black',
@@ -74,49 +60,29 @@ const AnswerCard = ({message, isSender}) => {
     flexDirection: 'column',
     minWidth: checkSize(),
     justifyContent: isSender? 'right': 'left',
-    
     marginLeft: isSender ? 'auto' : 'none',
     marginRight: isSender ? 'none' : 'auto',
-    opacity: isAppeared? 1 : 0,
     transition: 'opacity 0.3s'
-
   };
-
-  const textStyle = {
-    margin: 0,
-    padding: 0
-  };
-
-
-
-
-  const buttonText = isExpanded ? 'Свернуть текст' : 'Развернуть текст полностью';
-
   
   return (
     <div style={ cardStyle }>
       <div style={ messageField }>
-        { !isSender && isLoading ? <ReactLoading type={"bars"} color={"black"} /> 
+        { !isSender && isLoading ? <ReactLoading type={"bubbles"} color={"black"} width={35} height={35}/> 
         : 
         <div>
           {isExpanded ? (
-            <p style={textStyle}>{message}</p>
+            <p>{ message }</p>
           ) : (
-            <p style={textStyle}>{ message.slice(0, 400) }</p>
+            <p>{ message.slice(0, 400) }</p>
           )}
           { message.length > 400 && (
-            <button style={buttonStyle} onClick={toggleExpand}>
-              {buttonText}
+            <button style={ buttonStyle } onClick={ setIsExpanded(!isExpanded) }>
+              { isExpanded ? 'Свернуть текст' : 'Развернуть текст полностью' }
             </button>
           )}
         </div>}
-        
       </div>
-      
-      
-
-
-
     </div>
   );
 };

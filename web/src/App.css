@@ -12,12 +12,6 @@
 }
 
 @media (min-width: 900px) {
-  .App {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  
-  
   .Chat {
     padding: 2% 18%;
     padding-bottom: 12%;
@@ -26,7 +20,7 @@
 
   .InputArea {
     max-width: 63%;
-    padding: 30px 10px;
+    padding: 20px;
   }
 }
 
@@ -42,61 +36,51 @@
   
 }
 
-
-
-
-
+.red-button {
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
 .InputArea {
   width: 100%;
-
-  
-
   justify-content: center;
-  
   position: fixed;
   bottom: 0;
   right: 50%;
   left: 50%;
-  
   height: max-content;
-
   transform: translate(-50%, 0%);
-  
   display: flex;
-  align-items: start;
-  
+  align-items: flex-start;
   background-color: #D5DCE3;
   border-top: 1px solid #95a0a8; /* Горизонтальная линия над строкой ввода */
   box-shadow: 0 15px 30px 10px rgba(0, 0, 0, .5);
 }
 
 .InputArea textarea {
-
   height: 90%;
   min-height: 60px;
   max-width: 100%;
-
   resize: none;
   font-family: Arial, Helvetica, sans-serif;
   flex: 1;
-  
-
-
   padding:  15px 20px;
   border: none;
   border-radius: 20px;
-  margin-right: 10px; /* Пространство между полем ввода и кнопкой "Отправить" */
+  margin-right: 10px;
 }
 
 .InputArea textarea:focus {
-  outline: none; /* Удаление рамки при вводе */
+  outline: none;
 }
 
 
 .InputArea button {
-  background-color: #007bff; /* Цвет кнопки "Отправить" */
-  color: white;
+  background-color: #ccd2d8;
   border: none;
   border-radius: 4px;
   padding: 8px 16px;
@@ -104,28 +88,5 @@
 }
 
 .InputArea button:hover {
-  background-color: #0056b3; /* Цвет кнопки при наведении */
-}
-
-.ButtonStyle {
-  display: flex;
-}
-
-
-.spinner {
-  width: 3vw;
-  height: 3vw;
-  border: 3px solid;
-  border-color: #3d5af1 transparent #3d5af1 transparent;
-  border-radius: 2vw;
-  animation: spin-anim 1.2s linear infinite;
-}
-
-@keyframes spin-anim {
-  0% {
-      transform: rotate(0deg);
-  }
-  100% {
-      transform: rotate(360deg);
-  }
+  background-color: #b7bcc2;
 }
